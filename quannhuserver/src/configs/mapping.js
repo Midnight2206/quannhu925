@@ -44,6 +44,7 @@ const fieldDisplayMapping = {
   armorialMilitary33: "Quân hiệu ĐK33mm",
   rankInsignia: "Cấp hiệu",
   branchInsignia: "Phù hiệu",
+  dayChienThang: "Dây chiến thắng",
   receiver: "Người nhận",
   criterionOf: "Tiêu chuẩn của",
   tranferFrom: "Chuyển từ",

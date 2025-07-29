@@ -1,7 +1,7 @@
 import * as crypto from "crypto";
 import * as unorm from "unorm";
-import Listquantrang from "../configs/mongoDB/listquantrang";
-import fieldDisplayMapping from "../configs/mapping";
+import Listquantrang from "../../configs/mongoDB/listquantrang";
+import fieldDisplayMapping from "../../configs/mapping";
 
 class listQuantrangController {
   async render(req, res, next) {

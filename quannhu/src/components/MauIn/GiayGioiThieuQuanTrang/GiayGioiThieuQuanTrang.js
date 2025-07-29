@@ -44,20 +44,20 @@ const GiayGioiThieuQuanTrang = React.forwardRef( ({data}, ref) => {
                             <p>Đơn vị: Trung đoàn 925</p>
                             <div className={cx('line-dup')}>
                                 <p className={cx('line-left')}>Giới thiệu đ/c: {data?.info?.fullName}</p>
-                                <p className={cx('line-right')}>Nhập ngũ: </p>
+                                <p className={cx('line-right')}>Nhập ngũ: 2015 (CCĐ: 2019)</p>
                             </div>
                             <div className={cx('line-dup')}>
                                 <p className={cx('line-left')}>Cấp bậc: {data?.info?.rank}</p>
-                                <p className={cx('line-right')}>Chức vụ:</p>
+                                <p className={cx('line-right')}>Chức vụ: Nhân viên nấu ăn</p>
                             </div>
                             <p>Nay chuyển đến đơn vị: {data?.otherInfo?.tranferTo}</p>
                             <p>Theo quyết định số: {data?.otherInfo?.numberOfDecision}</p>
                             <p><strong>I. TRUNG ĐOÀN 925</strong></p>
-                            <p>1. Quân trang thường xuyên: Hết tiêu chuẩn quân trang năm {+data?.otherInfo?.toAnyYear - 1}.</p>
-                            <p>2. Quân trang niên hạn: Hết tiêu chuẩn quân trang niên hạn năm {+data?.otherInfo?.toAnyYear - 1}.</p>
+                            <p>1. Quân trang thường xuyên: Hết tiêu chuẩn quân trang năm {+data?.otherInfo?.toAnyYear}.</p>
+                            <p>2. Quân trang niên hạn: Hết tiêu chuẩn quân trang niên hạn năm {+data?.otherInfo?.toAnyYear}.</p>
                             <p><strong>II. ĐÈ NGHỊ ĐƠN VỊ MỚI BẢO ĐẢM</strong></p>
-                            <p>1. Quân trang thường xuyên: Tiêu chuẩn quân trang từ năm {data?.otherInfo?.toAnyYear}.</p>
-                            <p>2. Quân trang niên hạn: Tiêu chuẩn quân trang niên hạn năm {data?.otherInfo?.toAnyYear}.</p>
+                            <p>1. Quân trang thường xuyên: Tiêu chuẩn quân trang từ năm {+data?.otherInfo?.toAnyYear + 1}.</p>
+                            <p>2. Quân trang niên hạn: Tiêu chuẩn quân trang niên hạn năm {+data?.otherInfo?.toAnyYear + 1}.</p>
                         </div>
                     </div>
 

@@ -1,94 +1,62 @@
-h1 {
-    text-align: center;
-    width: 100%;
-    margin: 16px 8px;
-    font-weight: inherit;
-    font-size: inherit;
+.wrapper {
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
+
 .title {
-    height: 60px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-weight: 600;
-    font-size: 20px;
-    border-bottom: 1px solid black;
+    text-align: center;
+    color: #333;
+    margin-bottom: 20px;
 }
-.choose-year {
-    display: flex;
-    label {
-        font-size: inherit; 
-        margin-right: 16px;
-    }
-    select {
-        font-size: inherit;
-        font-weight: inherit;
-        width: 100px;
-        text-align: center;
-    }
-    
+
+.description {
+    text-align: center;
+    color: #555;
+    font-style: italic;
+    margin-bottom: 20px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid #ddd;
 }
-.option {
-    display: flex;
-    padding-left: 120px;
-    width: 800px;
-    display: flex;
-    justify-content: space-around;
-    button, a {
-        height: 40px;
-        min-width: 120px;
-    }
-}
+
 .header {
     display: flex;
-    border-bottom: 1px solid black;
-}
-.colunm {
-    width: 33vw;
-    padding: 16px;
-}
-.colunm.colunm {
-    border-left: 1px solid black;
-    margin: auto;
-    display: flex;
-    flex-wrap: wrap;
     justify-content: space-between;
+    margin-bottom: 20px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid #ddd;
 }
-.input-info {
-    border: 1px solid rgba(22, 24, 35, 0.4);
-    background-color: rgba(22, 24, 35, 0.03);
-    padding-left: 8px;
-    margin-left: 8px;
-    width: 200px;
-    &:focus {
-        border: 1px solid rgba(22, 24, 35, 0.6);
-        background-color: rgba(22, 24, 35, 0.06);
 
+.column {
+    flex: 1;
+    padding: 10px;
+    border-right: 1px solid #ddd;
+
+    &:last-child {
+        border-right: none;
     }
 }
-.label-info {
-    font-weight: 600;
-    width: 160px;
-}
+
 .info-element {
-    margin: 12px 24px;
-    width: 40%;
+    margin-bottom: 15px;
 }
-.action {
-    width: 450px;
-    margin: 4px auto;
-    height: 60px;
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-    
+
+.label-info {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+    color: #555;
 }
-.zoomOut {
-    display: none;
+
+.input-info {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
 }
-thead .table-head {
-    background-color: red;
-}
+
 //increaseList
 .filter {
     display: flex;
@@ -195,4 +163,12 @@ thead .table-head {
     &:active {
         background-color: rgba(22, 24, 35, 0.12);
     }
+}
+.action {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 20px;
+    gap: 10px;
+    padding-top: 20px;
+    border-top: 1px solid #ddd;
 }

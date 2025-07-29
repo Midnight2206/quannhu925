@@ -42,6 +42,10 @@ const MENU_ITEMS = [
         title: 'Quân trang dùng chung',
         to: '/quantrang/shared',
     },
+    {
+        title: 'Quân trang khách',
+        to: '/quantrang/guest',
+    },
 ];
 
 const cx = classNames.bind(style);
@@ -52,15 +56,14 @@ function Quantrang() {
         const savedYear = localStorage.getItem('selectedYear');
         return savedYear || '2022';
     });
-
     const [years, setYears] = useState([]);
     const [infoKeys, setInfoKeys] = useState([]);
     const [sizeKeys, setSizeKeys] = useState([]);
     const [dataKeys, setDataKeys] = useState([]);
     const [listDatas, setListDatas] = useState([]);
-    const [infoHeaders, setInfoHeaders] = useState([])
-    const [sizeHeaders, setSizeHeaders] = useState([])
-    const [dataHeaders, setDataHeaders] = useState([])
+    const [infoHeaders, setInfoHeaders] = useState([]);
+    const [sizeHeaders, setSizeHeaders] = useState([]);
+    const [dataHeaders, setDataHeaders] = useState([]);
 
     const handleMenuChange = (menuItem) => {
         switch (menuItem.type) {
@@ -87,7 +90,7 @@ function Quantrang() {
             setDataKeys(res.data.dataKeys);
             setInfoHeaders(res.data.infoHeaders);
             setSizeHeaders(res.data.sizeHeaders);
-            setDataHeaders(res.data.dataHeaders)
+            setDataHeaders(res.data.dataHeaders);
             setYears(res.data.years);
             setListDatas(res.data.listDatas);
         } catch (error) {
@@ -101,6 +104,7 @@ function Quantrang() {
     const handleOnClickRow = (id) => {
         navigate(`/quantrang/individual/${id}`, { state: { year: selectedYear } });
     };
+    
     return (
         <div className={cx('wrapper')}>
             <div className={cx('header')}>
@@ -124,9 +128,13 @@ function Quantrang() {
                 </div>
                 <Search year={selectedYear} />
                 <div className={cx('action')}>
+                    <Button primary to={`/quantrang/statistical?year=${selectedYear}`}>
+                        Thống kê
+                    </Button>
                     <Button primary to={`/quantrang/add?year=${selectedYear}`}>
                         Thêm
                     </Button>
+
                     <Menu items={MENU_ITEMS} onChange={handleMenuChange}>
                         <button className={cx('more-btn')}>
                             <FontAwesomeIcon icon={faEllipsisVertical} />

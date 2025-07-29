@@ -10,6 +10,9 @@ import DecreaseMilitaries from "./decreaseMilitaries/decreaseMilitaries.js";
 import DecreaseList from "./decreaseMilitaries/decreaseList.js";
 import Test from "./Test.js";
 import IncreaseList from "./increaseMilitaries/increaseList.js";
+import IncreaseTemporarySavesList from "./increaseMilitaries/temporarySaveList.js";
+import DecreaseTemporarySavesList from "./decreaseMilitaries/temporarySaveList.js";
+import Statistical from "./statistical";
 
 const QuanT = {
     Quantrang,
@@ -23,7 +26,11 @@ const QuanT = {
     DecreaseMilitaries,
     DecreaseList,
     IncreaseList,
-    Test
+    IncreaseTemporarySavesList,
+    DecreaseTemporarySavesList,
+    Test,
+    Statistical,
+    DecreaseList
 }
 export default QuanT
  

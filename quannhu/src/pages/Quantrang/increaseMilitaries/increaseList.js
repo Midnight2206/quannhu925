@@ -1,7 +1,6 @@
-import React from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import style from './increaseMilitaries.module.scss';
 import classNames from 'classnames/bind';
-import { useState, useEffect, useRef } from 'react';
 import httpRequest from '~/utils/httpRequest';
 import ReactToPrint from 'react-to-print';
 import { Table } from 'react-bootstrap';
@@ -14,8 +13,10 @@ import Filter from '~/components/Filter/Filter';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import GiaoNhanSoQTCN from '~/components/MauIn/GiaoNhanSoQTCN/GiaoNhanSoQTCN';
 import Button from '~/components/Button';
+import useDebounce from '~/hooks/useDebounce';  // Import custom hook useDebounce
 
 const cx = classNames.bind(style);
+
 function IncreaseList() {
     const [currentItem, setCurrentItem] = useState({});
     const printRef = useRef();
@@ -33,11 +34,12 @@ function IncreaseList() {
     const [infoHeaders, setInfoHeaders] = useState([]);
     const [sizeHeaders, setSizeHeaders] = useState([]);
     const [otherInfoHeaders, setOtherInfoHeaders] = useState([]);
+
     const getIncreaseList = async () => {
         try {
             const res = await httpRequest.get(`quantrang/increase/list`);
-            setData(res.data.data);
             setAllData(res.data.data);
+            setData(res.data.data);
             setInfoKeys(res.data.infoKeys);
             setSizeKeys(res.data.sizeKeys);
             setOtherInfoKeys(res.data.otherInfoKeys);
@@ -48,21 +50,29 @@ function IncreaseList() {
             console.log(error);
         }
     };
-    const searchWithName = async () => {
-        if (searchValue) {
-            setData((prev) =>
-                prev.filter((item) => item.info.fullName.toLowerCase().includes(searchValue.toLowerCase())),
-            );
+
+    // Sử dụng custom hook useDebounce để debounce searchValue
+    const debouncedSearchValue = useDebounce(searchValue, 300);
+
+    useEffect(() => {
+        getIncreaseList();
+    }, []);
+
+    useEffect(() => {
+        if (debouncedSearchValue) {
+            setData(prev => prev.filter(item => item.info.fullName.toLowerCase().includes(debouncedSearchValue.toLowerCase())));
         } else {
             setData(allData);
         }
-    };
+    }, [debouncedSearchValue, allData]);
+
     const handleChange = (e) => {
-        const searchValue = e.target.value;
-        if (!searchValue.startsWith(' ')) {
-            setSearchValue(unorm.nfc(searchValue));
+        const value = e.target.value;
+        if (!value.startsWith(' ')) {
+            setSearchValue(unorm.nfc(value));
         }
     };
+
     const getFilterDatas = async () => {
         try {
             const res = await httpRequest.post(`quantrang/increase/filter`, { params: filterDatas });
@@ -71,20 +81,20 @@ function IncreaseList() {
             console.log(error);
         }
     };
+
     const handleFilterValueChange = (value) => {
-        setFilterDatas((prev) => ({ ...prev, ...value }));
+        setFilterDatas(prev => ({ ...prev, ...value }));
     };
+
     const handleClear = () => {
         setSearchValue('');
         inputRef.current.focus();
     };
+
     const handleChangeFilted = (name, filted) => {
-        if (filted) {
-            setFilteds((prev) => [...prev, name]);
-        } else {
-            setFilteds((prev) => prev.filter((item) => item !== name));
-        }
+        setFilteds(prev => filted ? [...prev, name] : prev.filter(item => item !== name));
     };
+
     const handlePrint = (item) => {
         setCurrentItem(item);
         setTimeout(() => {
@@ -92,20 +102,12 @@ function IncreaseList() {
         }, 0);
     };
 
-    useEffect(() => {
-        const fetchData = async () => {
-            await getIncreaseList();
-        };
-        fetchData();
-    }, []);
     return (
         <div>
             <div className={cx('header-list')}>
                 <div className={cx('title-list')}>
                     <h1>DANH SÁCH QUÂN NHÂN TĂNG</h1>
-                    <Button primary to={'/quantrang/increase'}>
-                        Trở về
-                    </Button>
+                    <Button primary to={'/quantrang/increase'}>Trở về</Button>
                 </div>
                 <div className={cx('filter')}>
                     <div className={cx('search')}>
@@ -117,15 +119,18 @@ function IncreaseList() {
                             onChange={handleChange}
                         />
                         {!!searchValue && !loading && (
-                            <button className={cx('clear')} onClick={handleClear}>
-                                <FontAwesomeIcon icon={faCircleXmark} />
-                            </button>
+                            <Button
+                                className={cx('clear')}
+                                onClick={handleClear}
+                                icon={<FontAwesomeIcon icon={faCircleXmark} />}
+                            />
                         )}
                         {loading && <FontAwesomeIcon className={cx('loading')} icon={faSpinner} />}
-
-                        <button className={cx('search-btn')} onMouseDown={searchWithName}>
-                            <SearchIcon />
-                        </button>
+                        <Button
+                            className={cx('search-btn')}
+                            onMouseDown={() => {}}
+                            icon={<SearchIcon />}
+                        />
                     </div>
                     <Filter
                         title="Năm PH CCĐ"
@@ -165,32 +170,20 @@ function IncreaseList() {
                 <Table bordered responsive>
                     <thead className={cx('table-head')}>
                         <tr>
-                            {infoHeaders.map((header) => (
-                                <th key={header}>{header}</th>
-                            ))}
-                            {sizeHeaders.map((header) => (
-                                <th key={header}>{header}</th>
-                            ))}
-                            {otherInfoHeaders.map((header) => (
-                                <th key={header}>{header}</th>
-                            ))}
+                            {infoHeaders.map(header => <th key={header}>{header}</th>)}
+                            {sizeHeaders.map(header => <th key={header}>{header}</th>)}
+                            {otherInfoHeaders.map(header => <th key={header}>{header}</th>)}
                             <th>#</th>
                         </tr>
                     </thead>
                     <tbody>
                         {data?.map((item, index) => (
                             <tr key={index}>
-                                {infoKeys.map((key) => (
-                                    <td key={key}>{item.info[key]}</td>
-                                ))}
-                                {sizeKeys.map((key) => (
-                                    <td key={key}>{item.size[key]}</td>
-                                ))}
-                                {otherInfoKeys.map((key) => (
-                                    <td key={key}>{item.otherInfo[key]}</td>
-                                ))}
+                                {infoKeys.map(key => <td key={key}>{item.info[key]}</td>)}
+                                {sizeKeys.map(key => <td key={key}>{item.size[key]}</td>)}
+                                {otherInfoKeys.map(key => <td key={key}>{item.otherInfo[key]}</td>)}
                                 <td>
-                                    <button onClick={() => handlePrint(item)}>
+                                <button onClick={() => handlePrint(item)}>
                                         <FontAwesomeIcon icon={faPrint} />
                                     </button>
                                 </td>
@@ -200,11 +193,7 @@ function IncreaseList() {
                 </Table>
                 {currentItem && (
                     <div style={{ display: 'none' }}>
-                        <ReactToPrint
-                            trigger={() => <span></span>}
-                            content={() => printRef.current}
-                            ref={reactToPrintRef}
-                        />
+                        <ReactToPrint trigger={() => <span></span>} content={() => printRef.current} ref={reactToPrintRef} />
                         <GiaoNhanSoQTCN ref={printRef} data={currentItem} />
                     </div>
                 )}

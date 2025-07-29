@@ -2,7 +2,7 @@ const express = require('express')
 const router = express.Router()
 
 
-const sharedMilitaryEquipmentController = require('../controllers/sharedMilitaryEquipmentController')
+const sharedMilitaryEquipmentController = require('../controllers/quantrang/sharedMilitaryEquipmentController')
 
 router.post('/create', sharedMilitaryEquipmentController.create)
 router.post('/create-part', sharedMilitaryEquipmentController.createPart)

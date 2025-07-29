@@ -71,6 +71,7 @@ const ItemSchema = new Schema(normalizeKeysAndValues({
     armorialMilitary33: { type: Number, default: 0 },
     rankInsignia: { type: Number, default: 0 },
     branchInsignia: { type: Number, default: 0 },
+    dayChienThang: {type: Number, default: 0}
   },
 }));
 for (const field in fieldDisplayMapping) {

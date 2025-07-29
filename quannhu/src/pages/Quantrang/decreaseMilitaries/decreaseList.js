@@ -103,6 +103,7 @@ function DecreaseList() {
                 <div className={cx('title-list')}>
                     <h1>DANH SÁCH QUÂN NHÂN GIẢM</h1>
                     <Button primary to={'/quantrang'}>Trở về</Button>
+                    <Button primary to={'/quantrang/decrease/temporarySave/list'}>DS Lưu tạm</Button>
                 </div>
                 <div className={cx('filter')}>
                     <div className={cx('search')}>
@@ -134,7 +135,7 @@ function DecreaseList() {
                         />
                         <Filter
                             title="Chuyển đến"
-                            data={(filteds[0] === 'tranferTo' ? allData : data).map((dt) => dt.otherInfo.tranferTo)}
+                            data={(filteds[0] === 'tranferTo' ? allData : data).map((dt) => dt.otherInfo?.tranferTo)}
                             onValueChange={handleFilterValueChange}
                             name="tranferTo"
                             onOkClick={getFilterDatas}
@@ -142,7 +143,7 @@ function DecreaseList() {
                         />
                         <Filter
                             title="Bảo đảm đến năm"
-                            data={(filteds[0] === 'toAnyYear' ? allData : data).map((dt) => dt.otherInfo.toAnyYear)}
+                            data={(filteds[0] === 'toAnyYear' ? allData : data).map((dt) => dt.otherInfo?.toAnyYear)}
                             onValueChange={handleFilterValueChange}
                             name="toAnyYear"
                             onOkClick={getFilterDatas}
@@ -150,7 +151,7 @@ function DecreaseList() {
                         />
                         <Filter
                             title="Ngày chuyển đi"
-                            data={(filteds[0] === 'dateMove' ? allData : data).map((dt) => dt.otherInfo.dateMove)}
+                            data={(filteds[0] === 'dateMove' ? allData : data).map((dt) => dt.otherInfo?.dateMove)}
                             onValueChange={handleFilterValueChange}
                             name="dateMove"
                             onOkClick={getFilterDatas}
@@ -158,7 +159,7 @@ function DecreaseList() {
                         />
                         <Filter
                             title="Chuyển nội bộ"
-                            data={(filteds[0] === 'internalTransfer' ? allData : data).map((dt) => dt.otherInfo.internalTransfer)}
+                            data={(filteds[0] === 'internalTransfer' ? allData : data).map((dt) => dt.otherInfo?.internalTransfer)}
                             onValueChange={handleFilterValueChange}
                             name="internalTransfer"
                             onOkClick={getFilterDatas}
@@ -185,14 +186,14 @@ function DecreaseList() {
                     <tbody>
                         {data?.map((item, index) => (
                             <tr key={index}>
-                                {infoKeys.map((key) => (
+                                {infoKeys?.map((key) => (
                                     <td key={key}>{item.info[key]}</td>
                                 ))}
-                                {sizeKeys.map((key) => (
+                                {sizeKeys?.map((key) => (
                                     <td key={key}>{item.size[key]}</td>
                                 ))}
-                                {otherInfoKeys.map((key) => (
-                                    <td key={key}>{item.otherInfo[key]}</td>
+                                {otherInfoKeys?.map((key) => (
+                                    <td key={key}>{item?.otherInfo[key]}</td>
                                 ))}
                                 <td>
                                     <button onClick={() => handlePrint(item)}>

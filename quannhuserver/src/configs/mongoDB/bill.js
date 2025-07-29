@@ -43,6 +43,7 @@ const DataSchema = new Schema({
     armorialMilitary33: { type: Number },
     rankInsignia: { type: Number },
     branchInsignia: { type: Number },
+    dayChienThang: {type: Number}
 })
 for (const field in fieldDisplayMapping) {
     InfoSchema.virtual(`${field}_display`).get(function () {
@@ -62,5 +63,5 @@ const Bills = new Schema({
     info: InfoSchema,
     data: DataSchema
 })
-Bills.plugin(AutoIncrementPlugin, { inc_field: 'num' });
+Bills.plugin(AutoIncrementPlugin, { inc_field: 'num', start_seq: 600 });
 module.exports =  mongoose.model('Bills', Bills)

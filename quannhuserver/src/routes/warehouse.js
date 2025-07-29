@@ -1,6 +1,6 @@
 const express = require('express')
 const router = express.Router()
-const warehouseController = require('../controllers/warehouseController')
+const warehouseController = require('../controllers/quantrang/warehouseController')
 
 router.post('/bill', warehouseController.saveBill)
 

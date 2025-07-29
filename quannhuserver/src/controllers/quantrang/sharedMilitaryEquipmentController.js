@@ -1,5 +1,5 @@
-import SharedMilitaryEquipment from "../configs/mongoDB/sharedMilitaryEuipment";
-import Parts from "../configs/mongoDB/part";
+import SharedMilitaryEquipment from "../../configs/mongoDB/sharedMilitaryEuipment";
+import Parts from "../../configs/mongoDB/part";
 
 class sharedMilitaryEquipmentController {
   async create(req, res, next) {

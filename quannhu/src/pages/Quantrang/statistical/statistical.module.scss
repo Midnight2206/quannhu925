@@ -1,0 +1,116 @@
+.container {
+    width: 100%;
+    margin: 0 auto;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+.header {
+    display: flex;
+    text-align: center;
+    margin-bottom: 20px;
+
+    .title {
+        font-size: 24px;
+        font-weight: bold;
+        color: #333;
+        margin-bottom: 10px;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+    }
+
+    label {
+        font-size: 16px;
+        width: 250px;
+        color: #555;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+        margin-top: 10px;
+        margin-right: 25px;
+
+        input[type="checkbox"] {
+            width: 18px;
+            height: 18px;
+            accent-color: #007bff;
+            cursor: pointer;
+        }
+    }
+}
+
+.body {
+    overflow-x: auto; /* Cho phép cuộn ngang khi nội dung vượt quá chiều rộng */
+    width: 100%;
+
+    .table {
+        width: 100%;
+        min-width: 800px; /* Đặt chiều rộng tối thiểu để bảng không quá nhỏ */
+        border-collapse: collapse;
+
+        thead {
+            background-color: #f5f5f5;
+
+            th {
+                text-align: center;
+                padding: 10px;
+                font-size: 1.3rem;
+                font-weight: bold;
+                border: 1px solid #ddd;
+            }
+        }
+
+        tbody {
+            tr {
+                td {
+                    text-align: center;
+                    padding: 8px;
+                    font-size: 1.05rem;
+                    border: 1px solid #ddd;
+                    word-wrap: break-word; /* Tự động xuống dòng nếu nội dung quá dài */
+                }
+
+                /* Đổi màu từng dòng */
+                &:nth-child(odd) td {
+                    background-color: #f9f9f9;
+                }
+
+                &:nth-child(even) td {
+                    background-color: #e6f7ff;
+                }
+
+                &:hover td {
+                    background-color: #d3e9ff; /* Màu khi hover */
+                }
+            }
+
+
+        }
+
+        .first-column {
+            font-weight: bold;
+            background-color: #e9ecef;
+        }
+
+        .no-data {
+            text-align: center;
+            font-style: italic;
+            color: #888;
+            padding: 15px;
+        }
+    }
+}
+
+.loading {
+    text-align: center;
+    font-size: 1rem;
+    color: #666;
+    margin-top: 20px;
+}
+
+.error {
+    text-align: center;
+    font-size: 1rem;
+    color: #d9534f; /* Màu đỏ để nhấn mạnh lỗi */
+    margin-top: 20px;
+}

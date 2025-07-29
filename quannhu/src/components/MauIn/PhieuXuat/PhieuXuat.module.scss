@@ -3,7 +3,10 @@
         page-break-before: always;
         border: none;
         margin: 20mm 15mm 20mm 30mm;
+        width: 210mm;
+        height: 290mm;
     }
+    position: relative;
     border: 1px solid #ddd;
     height: 100vh;
     overflow-y: auto;
@@ -42,6 +45,7 @@
         }
     }
     .invoice-table {
+        margin-right: inherit;
         th, tr, td {
             border-color: black;
         }
@@ -62,6 +66,7 @@
         }
     }
     .invoice-footer {
+        margin-right: inherit;
         margin-top: 24px;
     }
     .invoice-signature {
@@ -69,6 +74,12 @@
         justify-content: space-between;
         text-align: center;
         font-weight: 600;
+    }
+    .invoice-qr {
+        margin-right: inherit;
+        position: absolute;
+        bottom: 0px;
+        right: 30px;
     }
 }
 // Invoice print
@@ -80,8 +91,7 @@
 //     }
 
 //     .invoice {
-//         width: 210mm;
-//         height: 297mm;
+//         
 //         margin: 20mm 15mm 20mm 35mm;
 //         page-break-before: always;
 //         table {

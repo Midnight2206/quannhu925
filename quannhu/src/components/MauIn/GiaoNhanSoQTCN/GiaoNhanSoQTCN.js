@@ -41,7 +41,13 @@ const GiaoNhanSoQTCN = React.forwardRef( ({data}, ref) => {
                             <p>     Đã nộp sổ QTCN số {data?.info?.lotteryNumber} của đồng chí {data?.info?.fullName} và giấy giới thiệu quân trang số .......... Ngành Quân nhu xác nhận nội dung bảo đảm như sau:</p>
                             <p>     Đ/c: {data?.info?.fullName}</p>
                             <p>     PH, CCĐ lần đầu năm: {data?.info?.PHCDD}</p>
-                            <p>     Cỡ số: Quân phục: {data?.size?.uniform}; Giày: {data?.size?.shoe}; Mũ: {data?.size?.hat}; Chiếu: {data?.size?.mat}; QT niên hạn: {data?.size?.duaration}</p>
+                            <p>     Cỡ số:</p>
+                             <p>          - Quân phục: {data?.size?.uniform};</p> 
+                             <p>          - Giày: {data?.size?.shoe};</p>
+                              <p>         - Mũ: {data?.size?.hat};</p>
+                             <p>          - Chiếu: {data?.size?.mat};</p>
+                              <p>         - QT niên hạn: {data?.size?.duaration}</p>
+                        
                             <p>     Bảo đảm quân trang từ năm: {data?.otherInfo?.fromAnyYear}</p>
                             {/* Thêm thông tin khác nếu cần */}
                         </div>

@@ -3,6 +3,7 @@ import classNames from 'classnames/bind';
 import style from './Criterion.module.scss';
 import httpRequest from '~/utils/httpRequest';
 import Button from '~/components/Button';
+import { utils, writeFile } from 'xlsx';
 const cx = classNames.bind(style);
 function UpdateCriterion({ years, listCCD, dataHeaders, dataKeys }) {
     const [year, setYear] = useState(years[0]);
@@ -22,7 +23,6 @@ function UpdateCriterion({ years, listCCD, dataHeaders, dataKeys }) {
             }
         }));
     };
-    console.log(data);
     const postData = async () => {
         try {
             const res = await httpRequest.put(`quantrang/criterion?year=${year}`, data);
@@ -32,7 +32,6 @@ function UpdateCriterion({ years, listCCD, dataHeaders, dataKeys }) {
         } catch (error) {
             if (error.response) {
                 const { status, data } = error.response;
-                
                 if (status === 500) {
                     setModalContent({ show: true, title: 'Thất bại', message: data.error });
                 }
@@ -50,10 +49,20 @@ function UpdateCriterion({ years, listCCD, dataHeaders, dataKeys }) {
             const res = await httpRequest.get(`quantrang/criterion/update?year=${year}`);
             setData(res.data.data);
         };
-        
         fetchData();
     }, [year])
-    console.log(data);
+    const exportToExcel = (data) => {
+        const worksheet = utils.json_to_sheet(data);
+        const workbook = utils.book_new();
+        utils.book_append_sheet(workbook, worksheet, 'Data');
+        writeFile(workbook, 'data.xlsx');
+      };
+    const dataToExxcel = Object.entries(data).map(([key, value]) => {
+        return {
+            CCD: key,
+            ...value
+        }
+    })
     return (
         <div className={cx('update-wrapper')}>
             <div className={cx('update-header')}>
@@ -67,6 +76,7 @@ function UpdateCriterion({ years, listCCD, dataHeaders, dataKeys }) {
                         ))}
                     </select>
                 <Button onClick={() => postData()} primary className={cx('update-btn')}>Chỉnh sửa</Button>
+                <Button onClick={() => exportToExcel(data)}>EXPORT</Button>
                 </h1>
             </div>
             <div className={cx('update-body')}>

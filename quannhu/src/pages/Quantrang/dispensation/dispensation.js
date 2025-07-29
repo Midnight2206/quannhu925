@@ -14,6 +14,7 @@ import PhieuXuat from '~/components/MauIn/PhieuXuat/PhieuXuat';
 import Button from '~/components/Button';
 import { QuantrangContext } from '../quantrangContext';
 import style from './dispensation.module.scss';
+import { get } from 'lodash';
 const cx = classNames.bind(style);
 function Dispensation() {
     const location = useLocation();
@@ -23,6 +24,7 @@ function Dispensation() {
     const [showSuccessModal, setShowSuccessModal] = useState(false);
     const data = location.state.data
     const [showErrorModal, setShowErrorModal] = useState(false);
+    const [QRCodeData, setQRCodeData] = useState('')
     const [fieldDisplayMapping, setFieldDisplayMapping] = useState([])
     const [selectedDate, setSelectedDate] = useState(currentDay)
     const [selectedDateConvert, setSelectedDateConvert] = useState(convertDay(currentDay));
@@ -98,6 +100,15 @@ function Dispensation() {
             console.log(error);
         }
     };
+    const getQRdata = async () => {
+        try {
+            const res = await httpRequest.get('quantrang/dispensation/getQRCode', {params: {ID, year}});
+            setQRCodeData(res.data.data)
+        } catch (error) {
+            console.log(error);
+            
+        }
+    }
     const postData = async () => {
         try {
             const res = await httpRequest.post(
@@ -111,6 +122,7 @@ function Dispensation() {
             } else if (res.status === 500) {
                 setShowErrorModal(true);
             }
+            getQRdata();
         } catch (error) {
             console.log(error);
         }
@@ -188,7 +200,7 @@ function Dispensation() {
                 </div>
                 <div>
                     <div className={cx('phieu-xuat')} ref={componentRef}>
-                        <PhieuXuat fieldDisplayMapping={fieldDisplayMapping} num={num} info={info} data={dataInputCriterion} date={selectedDate} dispensationYear={year} />
+                        <PhieuXuat QRCodeData={QRCodeData} criterion={criterion} fieldDisplayMapping={fieldDisplayMapping} num={num} info={info} data={dataInputCriterion} date={selectedDate} dispensationYear={year} />
                     </div>
                 </div>
             </div>

@@ -1,9 +1,7 @@
-import * as crypto from "crypto";
-import * as unorm from "unorm";
-import fieldDisplayMapping from "../configs/mapping"
-import Listquantrang from "../configs/mongoDB/listquantrang";
-import Bills from "../configs/mongoDB/bill";
-import Criterion from "../configs/mongoDB/criterion";
+import fieldDisplayMapping from "../../configs/mapping"
+import Listquantrang from "../../configs/mongoDB/listquantrang";
+import Bills from "../../configs/mongoDB/bill";
+import Criterion from "../../configs/mongoDB/criterion";
 
 class IndividualController {
   async render(req, res) {
@@ -15,6 +13,7 @@ class IndividualController {
       let results = [];
       const receivedData = {};
       const years = await Listquantrang.distinct("year");
+      years.sort()
       years.map((year) => {
         receivedData[year] = {};
       });
@@ -24,12 +23,13 @@ class IndividualController {
       await Bills.find({ "info.ID": id })
         .then((docs) => {
           docs.map((doc) => {
+            doc = doc.toObject();
             Object.keys(doc.data).map((item) => {
               let bill = {};
 
               bill.num = doc.num;
-              bill.receiver = doc.info["Người nhận"];
-              bill.adress = doc.info["Đơn vị"];
+              bill.receiver = doc.info.receiver;
+              bill.adress = doc.info.unit;
               bill.time = doc.date;
               if (typeof receivedData[doc.year][item] === "object") {
                 receivedData[doc.year][item].push(bill);
@@ -59,6 +59,7 @@ class IndividualController {
 
         // Kết hợp tất cả các mảng con thành một mảng lớn
         results = results.flat();
+        results.sort((a, b) => a.year - b.year);
       } else {
         console.log("Không tìm thấy tài liệu với ID:", id);
         return null;
@@ -76,7 +77,7 @@ class IndividualController {
       }
       res
         .status(200)
-        .json({ results, criterion, dataKeys, infoKeys, sizeKeys, years, fieldDisplayMapping });
+        .json({ results, criterion, dataKeys, infoKeys, sizeKeys, years, fieldDisplayMapping, receivedData });
     } catch (error) {
       console.error(error);
       res.status(500).json({ error: "Internal Server Error" });

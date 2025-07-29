@@ -14,10 +14,17 @@ export const post = async (path, data, options = {}) => {
 export const put = async (path, data, options = {}) => {
     const response = await httpRequest.put(path, data, options);
     return response.data;
-};
+}
 
 export const patch = async (path, data, options = {}) => {
     const response = await httpRequest.patch(path, data, options);
+    return response.data;
+}
+export const remove = async (path, data, options = {}) => {
+    const response = await httpRequest.delete(path, {
+        ...options,
+        data, // Truyền dữ liệu qua đây
+    });
     return response.data;
 };
 

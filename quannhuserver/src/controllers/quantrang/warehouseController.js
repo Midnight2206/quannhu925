@@ -1,5 +1,5 @@
-import Bills from "../configs/mongoDB/bill";
-import Listquantrang from "../configs/mongoDB/listquantrang"
+import Bills from "../../configs/mongoDB/bill";
+import Listquantrang from "../../configs/mongoDB/listquantrang"
 class warehouseController {
   async saveBill(req, res, next) {
     try {

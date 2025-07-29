@@ -1,0 +1,232 @@
+
+// 🎨 Màu sắc
+$primary-color: #007bff;
+$secondary-color: #6c757d;
+$error-color: #dc3545;
+$success-color: #28a745;
+$background-light: #f8f9fa;
+$white: #ffffff;
+$black: #343a40;
+
+// ✨ Hiệu ứng chung
+@mixin flex-center {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+// 📌 Chiếm toàn bộ màn hình
+.wrapper {
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    background: $background-light;
+}
+
+// 🎯 Header
+.title {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 30px;
+    background: $white;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+
+    h1 {
+        color: $black;
+        font-size: 24px;
+    }
+
+    .inputYear {
+        width: 100px;
+        padding: 8px;
+        border: 1px solid $secondary-color;
+        border-radius: 5px;
+        text-align: center;
+        font-size: 16px;
+    }
+}
+
+// 📂 Giao diện chính (Chia đôi màn hình)
+.body {
+    display: flex;
+    height: calc(100vh - 60px); // Trừ chiều cao của title
+}
+
+// 🎭 Khu vực Import
+.importFile {
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    background: $white;
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+
+    .importFile-image {
+        width: 100%;
+        height: auto;
+        object-fit: cover;
+        max-height: 250px; // Giới hạn chiều cao ảnh
+    }
+
+    .importFile-content {
+        width: 100%; // Chiếm toàn bộ chiều rộng của .importFile
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px; // Khoảng cách giữa input và button
+        padding-top: 15px; // Tạo khoảng cách với ảnh
+    }
+
+    input[type='file'] {
+        flex: 1; // Chia đều khoảng trống với button
+        border: 1px solid $secondary-color;
+        margin: 10px;
+        height: 44px;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+
+    .importButton {
+        flex-shrink: 0; // Giữ nguyên kích thước, không bị co lại
+        background: $primary-color;
+        color: $white;
+        padding: 10px 16px;
+        margin: 10px;
+        border-radius: 5px;
+        font-size: 16px;
+        cursor: pointer;
+        transition: background 0.3s;
+
+        &:hover {
+            background: darken($primary-color, 10%);
+        }
+    }
+}
+
+
+// 🚨 Khu vực lỗi (Chia nửa phải)
+.errorData {
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    background: $background-light;
+    overflow-y: auto;
+
+    h1 {
+        font-size: 20px;
+        color: $error-color;
+    }
+
+    .error-list {
+        width: 100%;
+        max-width: 600px;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        margin-top: 10px;
+    }
+
+    .wrapper-errdt {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        padding: 10px;
+        background: $white;
+        border-radius: 5px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+
+        &-input {
+            flex: 1;
+            min-width: 120px;
+            padding: 8px;
+            border: 1px solid $secondary-color;
+            border-radius: 5px;
+            background: $white;
+
+            &:focus {
+                border-color: $primary-color;
+                outline: none;
+            }
+        }
+    }
+
+    .resend-button {
+        background: $success-color;
+        color: $white;
+        padding: 10px 16px;
+        border-radius: 5px;
+        font-size: 16px;
+        cursor: pointer;
+        margin-top: 10px;
+        transition: background 0.3s;
+
+        &:hover {
+            background: darken($success-color, 10%);
+        }
+    }
+}
+
+// 🎭 Modal thông báo
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.4);
+    @include flex-center;
+    z-index: 1000;
+
+    .modal-content {
+        background: $white;
+        padding: 20px;
+        border-radius: 8px;
+        text-align: center;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        max-width: 400px;
+        width: 80%;
+
+        p {
+            font-size: 18px;
+            color: $black;
+            margin-bottom: 15px;
+        }
+
+        button {
+            background: $success-color;
+            color: $white;
+            border: none;
+            padding: 10px 15px;
+            font-size: 16px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background 0.3s;
+
+            &:hover {
+                background: darken($success-color, 10%);
+            }
+        }
+    }
+}
+
+// 📱 Responsive cho màn hình nhỏ
+@media (max-width: 768px) {
+    .body {
+        flex-direction: column;
+    }
+
+    .importFile,
+    .errorData {
+        width: 100%;
+        height: 50%;
+    }
+
+    .errorData {
+        overflow-y: auto;
+    }
+}

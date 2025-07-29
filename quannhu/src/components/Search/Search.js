@@ -83,7 +83,7 @@ function Search({year}) {
                     <input
                         ref={inputRef}
                         value={searchValue}
-                        placeholder="Search accounts and videos"
+                        placeholder="Nhập tên quân nhân cần tìm kiếm"
                         spellCheck={false}
                         onChange={handleChange}
                         onFocus={() => setShowResult(true)}

@@ -1,6 +1,6 @@
-import Criterion from "../configs/mongoDB/criterion";
-import Listquantrang from "../configs/mongoDB/listquantrang";
-import fieldDisplayMapping from "../configs/mapping";
+import Criterion from "../../configs/mongoDB/criterion";
+import Listquantrang from "../../configs/mongoDB/listquantrang";
+import fieldDisplayMapping from "../../configs/mapping";
 
 class criterionController {
   async render(req, res, next) {

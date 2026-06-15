@@ -11,9 +11,11 @@ app.use(bodyParser.urlencoded({ extended: true }))
 app.use(bodyParser.json({ limit: '1000mb' }))
 
 app.use(function (req, res, next) {
-
+    const origin = req.headers.origin
     // Website you wish to allow to connect
-    res.setHeader('Access-Control-Allow-Origin', 'http://localhost:3000');
+    if (origin && origin.startsWith('http://localhost')) {
+    res.setHeader('Access-Control-Allow-Origin', origin)
+  }
 
     // Request methods you wish to allow
     res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');

@@ -1,0 +1,35 @@
+version: '3.8'
+
+services:
+  frontend:
+    build:
+      context: ./quannhu
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+    depends_on:
+      - backend
+    restart: always
+
+  backend:
+    build:
+      context: ./quannhuserver
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080"
+    depends_on:
+      - mongodb
+    restart: always
+
+  mongodb:
+    image: mongo:6.0
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo_data:/data/db
+      - ./database_dumps/mongo_scripts:/docker-entrypoint-initdb.d
+      - ./database_dumps/mongo_dumps:/dumps
+    restart: always
+
+volumes:
+  mongo_data:

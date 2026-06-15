@@ -28,7 +28,7 @@ const ItemSchema = new Schema(normalizeKeysAndValues({
     PHCDD: { type: Number },
     rank: { type: String },
     unit: { type: String },
-    lotteryNumber: {type: Number}
+    lotteryNumber: {type: String}
   },
   size: {
     uniform: { type: String },

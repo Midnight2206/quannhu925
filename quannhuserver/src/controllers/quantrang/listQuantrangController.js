@@ -2,6 +2,7 @@ import * as crypto from "crypto";
 import * as unorm from "unorm";
 import Listquantrang from "../../configs/mongoDB/listquantrang";
 import fieldDisplayMapping from "../../configs/mapping";
+import { log } from "console";
 
 class listQuantrangController {
   async render(req, res, next) {
@@ -38,6 +39,7 @@ class listQuantrangController {
       const listID = [];
       const errData = [];
       const setID = (fullName, CDD, sex) => {
+        if(!fullName || !CDD || !sex) return
         const inputString = fullName + CDD;
         const hash = crypto.createHash("sha256");
         hash.update(inputString);
